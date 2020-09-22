@@ -1,0 +1,81 @@
+<!doctype html>
+
+<body>
+    <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <script>
+        var canvas, canvasContext;
+
+        window.onload = function() {
+            canvas = document.getElementById('gameCanvas');
+            canvasContext = canvas.getContext('2d');
+
+            document.addEventListener('keydown', keyPressed);
+            document.addEventListener('keyup', keyReleased);
+
+            setInterval(mainloop, 1000 / 50);
+        }
+
+        var playerXpos = 50;
+        var playerYpos = 0;
+        const SIZE = 20;
+        var playerYspeed = 5;
+        var gravity = 0.6;
+        var vel = 0;
+        
+        var pipeXpos = 0;
+        var pipeYpos = 0;
+        const PIPE_WIDTH = 30;
+        const PIPE_HEIGHT = 60;
+        var pipeXspeed = -5; 
+
+        var spaceKeyPressed = false;
+        var SPACE_KEY = 32;
+
+        function mainloop() {
+            colorRect(0, 0, canvas.width, canvas.height, 'black'); // bg
+
+            colorRect(playerXpos, playerYpos, SIZE, SIZE, 'red');
+            colorRect(pipeXpos, pipeYpos, PIPE_WIDTH,PIPE_HEIGHT, 'lime');
+            playerMove();
+        }
+
+        function keyPressed(evt) {
+            if (evt.keyCode == SPACE_KEY) {
+                spaceKeyPressed = true;
+            }
+        }
+
+        function keyReleased(evt) {
+            if (evt.keyCode == SPACE_KEY) {
+                spaceKeyPressed = false;
+            }
+        }
+
+        function playerMove() {
+            playerYpos += vel;
+            vel += gravity;
+
+            if (spaceKeyPressed) {
+                vel = -10;
+            }
+        }
+
+        function colorRect(x, y, w, h, c) {
+            canvasContext.fillStyle = c;
+            canvasContext.fillRect(x, y, w, h);
+        }
+
+
+
+
+
+        var playerXpos = 50;
+        var playerYpos = 0;
+        
+        var playerYspeed = 5;
+        var gravity = 0.6;
+        var vel = 0;
+            
+
+    </script>
+</body>
