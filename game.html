@@ -21,22 +21,46 @@
         var playerYspeed = 5;
         var gravity = 0.6;
         var vel = 0;
-        
-        var pipeXpos = 0;
+
+
+
+        var pipeXpos = 500;
         var pipeYpos = 0;
-        const PIPE_WIDTH = 30;
-        const PIPE_HEIGHT = 60;
-        var pipeXspeed = -5; 
+        const PIPE_WIDTH = 60;
+        var PIPE_HEIGHT = 120;
+        var vel = 5;
+        var pipeSpeed = 5;
+
 
         var spaceKeyPressed = false;
         var SPACE_KEY = 32;
+
+        //second pipe
+        var pipe1Xpos = 500;
+        var pipe1Ypos = 280;
+        const PIPE1_WIDTH = 60;
+        const PIPE1_HEIGHT = 120;
+        var pipe1Speed = 5;
+
+
+        var spaceKeyPressed = false;
+        var SPACE_KEY = 32;
+
+
+
+
+
 
         function mainloop() {
             colorRect(0, 0, canvas.width, canvas.height, 'black'); // bg
 
             colorRect(playerXpos, playerYpos, SIZE, SIZE, 'red');
-            colorRect(pipeXpos, pipeYpos, PIPE_WIDTH,PIPE_HEIGHT, 'lime');
+            colorRect(pipeXpos, pipeYpos, PIPE_WIDTH, PIPE_HEIGHT, 'lime');
+            colorRect(pipe1Xpos, pipe1Ypos, PIPE1_WIDTH, PIPE1_HEIGHT, 'lime');
             playerMove();
+            pipeMove();
+            pipe1Move();
+
         }
 
         function keyPressed(evt) {
@@ -60,22 +84,35 @@
             }
         }
 
-        function colorRect(x, y, w, h, c) {
-            canvasContext.fillStyle = c;
-            canvasContext.fillRect(x, y, w, h);
+        function pipeMove() {
+            pipeXpos -= pipeSpeed;
+            if(pipeXpos + PIPE_WIDTH < 0){
+               pipeXpos = canvas.width - PIPE_WIDTH;
+                var extra =  Math.floor(Math.random()* 100);
+                PIPE_HEIGHT = PIPE_HEIGHT + extra;
+            }
+
+        }
+
+        function pipe1Move() {
+            pipe1Xpos -= pipe1Speed;
+             if(pipe1Xpos + PIPE1_WIDTH < 0){
+               pipe1Xpos = canvas.width - PIPE1_WIDTH;
+                var extra =  Math.floor(Math.random()* 100);
+                PIPE1_HEIGHT = PIPE1_HEIGHT + extra;
+            }
+
         }
 
 
 
 
 
-        var playerXpos = 50;
-        var playerYpos = 0;
-        
-        var playerYspeed = 5;
-        var gravity = 0.6;
-        var vel = 0;
-            
+
+        function colorRect(x, y, w, h, c) {
+            canvasContext.fillStyle = c;
+            canvasContext.fillRect(x, y, w, h);
+        }
 
     </script>
 </body>
