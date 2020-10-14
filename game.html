@@ -27,7 +27,7 @@
         var pipeXpos = 500;
         var pipeYpos = 0;
         const PIPE_WIDTH = 60;
-        var PIPE_HEIGHT = 120;
+        var pipeHeight = 250;
         var vel = 5;
         var pipeSpeed = 5;
 
@@ -39,13 +39,15 @@
         var pipe1Xpos = 500;
         var pipe1Ypos = 280;
         const PIPE1_WIDTH = 60;
-        const PIPE1_HEIGHT = 120;
+        const PIPE1_HEIGHT = 250;
         var pipe1Speed = 5;
 
+        var pipeGap = Math.floor(Math.random()*(80 - 30)) + 30;
+        var pipeCenter = 200;
 
         var spaceKeyPressed = false;
         var SPACE_KEY = 32;
-
+        
 
 
 
@@ -55,11 +57,11 @@
             colorRect(0, 0, canvas.width, canvas.height, 'black'); // bg
 
             colorRect(playerXpos, playerYpos, SIZE, SIZE, 'red');
-            colorRect(pipeXpos, pipeYpos, PIPE_WIDTH, PIPE_HEIGHT, 'lime');
-            colorRect(pipe1Xpos, pipe1Ypos, PIPE1_WIDTH, PIPE1_HEIGHT, 'lime');
+            colorRect(pipeXpos, pipeYpos, PIPE_WIDTH, pipeHeight, 'lime');
+            colorRect(pipe1Xpos, pipe1Ypos, PIPE1_WIDTH, pipeHeight, 'lime');
             playerMove();
             pipeMove();
-            pipe1Move();
+
 
         }
 
@@ -86,23 +88,43 @@
 
         function pipeMove() {
             pipeXpos -= pipeSpeed;
-            if(pipeXpos + PIPE_WIDTH < 0){
-               pipeXpos = canvas.width - PIPE_WIDTH;
-                var extra =  Math.floor(Math.random()* 100);
-                PIPE_HEIGHT = PIPE_HEIGHT + extra;
-            }
-
-        }
-
-        function pipe1Move() {
             pipe1Xpos -= pipe1Speed;
-             if(pipe1Xpos + PIPE1_WIDTH < 0){
-               pipe1Xpos = canvas.width - PIPE1_WIDTH;
-                var extra =  Math.floor(Math.random()* 100);
-                PIPE1_HEIGHT = PIPE1_HEIGHT + extra;
+            if (pipeXpos + PIPE_WIDTH < 0) {
+                pipeXpos = canvas.width - PIPE_WIDTH;
+                pipeGap = Math.floor(Math.random()*(150 - 50)) + 50;
+                pipeCenter = Math.floor(Math.random()*(canvas.height * .75 - canvas.height * .25)) + canvas.height * .25;
+                pipeYpos = pipeCenter - pipeHeight - pipeGap / 2;
+                console.log(pipeGap)
+            }
+            if (pipe1Xpos + PIPE_WIDTH < 0) {
+                pipe1Xpos = canvas.width - PIPE1_WIDTH;
+                pipe1Ypos = pipeCenter + pipeGap / 2;
+
             }
 
         }
+
+//        function pipe1Move() {
+//            pipe1Xpos -= pipe1Speed;
+//            if (pipe1Xpos + PIPE_WIDTH < 0) {
+//                pipe1Xpos = canvas.width - PIPE1_WIDTH;
+//                var extra = Math.floor(Math.random() + 100);
+//                PIPE1_HEIGHT = PIPE1_HEIGHT - extra;
+//
+//            }
+//            
+//                if (pipe1Ypos + PIPE1_HEIGHT < 0) {
+//                pipe1Ypos = canvas.height - PIPE1_HEIGHT;
+//                var extra = Math.floor(Math.random() + 50);
+//                PIPE1_WIDTH = PIPE1_WIDTH + extra;
+//            }
+//
+//
+//
+//        }
+
+
+
 
 
 
