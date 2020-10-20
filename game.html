@@ -12,6 +12,10 @@
             document.addEventListener('keydown', keyPressed);
             document.addEventListener('keyup', keyReleased);
 
+            for(var i = 0; i < totalPipes; i++){
+                makePipes();
+            }
+            
             setInterval(mainloop, 1000 / 50);
         }
 
@@ -50,9 +54,9 @@
 
 
         var pipes = [];
-
-
-
+        var totalPipes = 8;
+        var pipeCounter = 0;
+        
 
         function mainloop() {
             colorRect(0, 0, canvas.width, canvas.height, 'black'); // bg
@@ -89,6 +93,38 @@
             if(playerXpos + SIZE > pipeXpos && playerXpos < pipeXpos + PIPE_WIDTH && playerYpos + SIZE > pipeYpos && playerYpos < pipeYpos + pipeHeight){
                 playerXpos = 0;   
             }
+        }
+        
+        var pipeCounter = 0;
+        
+        function makePipes(){
+            const PIPE_WIDTH = canvas.width / 15;
+            const PIPE_HEIGHT = canvas.height * 0.7;
+            var pipeXpos = 0; 
+            var pipeYpos = 0;
+            var pipeXspeed = 8;
+            var pipeGap, pipeCenter;
+            
+            pipeXpos = canvas.width - PIPE_WIDTH + (PIPE_WIDTH * 2 * pipeCounter);
+            pipeGap = Math.floor(Math.random() * (200 - 50)) + 50;
+            pipeCenter = Math.floor(Math.random() * (canvas.height * .75 - canvas.height * .25)) + canvas.height * .25;
+            
+            if(pipeCounter%2 == 0){
+                pipeYpos = pipeCenter - PIPE_HEIGHT - pipeGap / 2;
+                pipeCounter++;
+            } else {
+                pipeYpos = pipeCenter + pipeGap / 2;
+            }
+            
+            var pipe = {
+                pipeXpos: pipeXpos,
+                pipeYpos: pipeYpos,
+                PIPE_WIDTH: PIPE_WIDTH,
+                PIPE_HEIGHT: PIPE_HEIGHT,
+                pipeXspeed: pipeXspeed
+            }
+            
+            pipes.push(pipe);
         }
 
         function pipeMove() {
