@@ -63,10 +63,11 @@
 
             colorRect(playerXpos, playerYpos, SIZE, SIZE, 'red');
           
-            colorRect(pipe1Xpos, pipe1Ypos, PIPE1_WIDTH, pipeHeight, 'lime');
+//            colorRect(pipe1Xpos, pipe1Ypos, PIPE1_WIDTH, pipeHeight, 'lime');
             playerMove();
             pipeMove();
-             drawPipes();
+            drawPipes();
+            pipesMove();
 
         }
 
@@ -96,6 +97,7 @@
         }
         
         var pipeCounter = 0;
+        var pipeYCounter = 0;
         
         function makePipes(){
             const PIPE_WIDTH = canvas.width / 15;
@@ -105,16 +107,22 @@
             var pipeXspeed = 8;
             var pipeGap, pipeCenter;
             
-            pipeXpos = canvas.width - PIPE_WIDTH + (PIPE_WIDTH * 2 * pipeCounter);
+            pipeXpos = canvas.width - PIPE_WIDTH + (PIPE_WIDTH * 4 * pipeYCounter);
             pipeGap = Math.floor(Math.random() * (200 - 50)) + 50;
             pipeCenter = Math.floor(Math.random() * (canvas.height * .75 - canvas.height * .25)) + canvas.height * .25;
             
-            if(pipeCounter%2 == 0){
+            if(pipeCounter%2 == 0 && pipeCounter != 0){
                 pipeYpos = pipeCenter - PIPE_HEIGHT - pipeGap / 2;
-                pipeCounter++;
-            } else {
-                pipeYpos = pipeCenter + pipeGap / 2;
+            } 
+            else if(pipeCounter == 0){
+                pipeYpos = pipeCenter - PIPE_HEIGHT - pipeGap / 2;       
             }
+            else {
+                pipeYpos = pipeCenter + pipeGap / 2;
+                pipeYCounter++;
+            }
+                pipeCounter++;
+            
             
             var pipe = {
                 pipeXpos: pipeXpos,
@@ -130,6 +138,16 @@
         function drawPipes(){
             pipes.forEach(function(pipe,i,array){
                   colorRect(pipe.pipeXpos, pipe.pipeYpos, pipe.PIPE_WIDTH, pipe.PIPE_HEIGHT, 'lime');
+            });
+        }
+        
+        function pipesMove(){
+            pipes.forEach(function(pipe,i,array){
+                    pipe.pipeXpos -= pipe.pipeXspeed;
+                
+                if(pipe.pipeXpos < 0){
+                    pipe.pipeXpos = canvas.width - pipe.PIPE_WIDTH;   
+                }
             });
         }
         
