@@ -1,7 +1,7 @@
 <!doctype html>
 
 <body>
-    <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <canvas id="gameCanvas" width="800" height="400"></canvas>
     <script>
         var canvas, canvasContext;
 
@@ -25,9 +25,9 @@
 
 
         var pipeXpos = 500;
-        var pipeYpos = 0;
+        var pipeYpos = -70;
         const PIPE_WIDTH = 60;
-        var pipeHeight = 250;
+        var pipeHeight = 300;
         var vel = 5;
         var pipeSpeed = 5;
 
@@ -37,18 +37,19 @@
 
         //second pipe
         var pipe1Xpos = 500;
-        var pipe1Ypos = 280;
+        var pipe1Ypos = 0;
         const PIPE1_WIDTH = 60;
-        const PIPE1_HEIGHT = 250;
+        const PIPE1_HEIGHT = 300;
         var pipe1Speed = 5;
 
-        var pipeGap = Math.floor(Math.random()*(80 - 30)) + 30;
+        var pipeGap = Math.floor(Math.random() * (80 - 30)) + 30;
         var pipeCenter = 200;
 
         var spaceKeyPressed = false;
         var SPACE_KEY = 32;
-        
 
+
+        var pipes = [];
 
 
 
@@ -84,6 +85,10 @@
             if (spaceKeyPressed) {
                 vel = -10;
             }
+            
+            if(playerXpos + SIZE > pipeXpos && playerXpos < pipeXpos + PIPE_WIDTH && playerYpos + SIZE > pipeYpos && playerYpos < pipeYpos + pipeHeight){
+                playerXpos = 0;   
+            }
         }
 
         function pipeMove() {
@@ -91,8 +96,8 @@
             pipe1Xpos -= pipe1Speed;
             if (pipeXpos + PIPE_WIDTH < 0) {
                 pipeXpos = canvas.width - PIPE_WIDTH;
-                pipeGap = Math.floor(Math.random()*(150 - 50)) + 50;
-                pipeCenter = Math.floor(Math.random()*(canvas.height * .75 - canvas.height * .25)) + canvas.height * .25;
+                pipeGap = Math.floor(Math.random() * (200 - 50)) + 50;
+                pipeCenter = Math.floor(Math.random() * (canvas.height * .75 - canvas.height * .25)) + canvas.height * .25;
                 pipeYpos = pipeCenter - pipeHeight - pipeGap / 2;
                 console.log(pipeGap)
             }
@@ -101,27 +106,29 @@
                 pipe1Ypos = pipeCenter + pipeGap / 2;
 
             }
+            
+            
 
         }
 
-//        function pipe1Move() {
-//            pipe1Xpos -= pipe1Speed;
-//            if (pipe1Xpos + PIPE_WIDTH < 0) {
-//                pipe1Xpos = canvas.width - PIPE1_WIDTH;
-//                var extra = Math.floor(Math.random() + 100);
-//                PIPE1_HEIGHT = PIPE1_HEIGHT - extra;
+//        if (rect1.x < rect2.x + rect2.width &&
+//   rect1.x + rect1.width > rect2.x &&
+//   rect1.y < rect2.y + rect2.height &&
+//   rect1.y + rect1.height > rect2.y) {
+    // collision detected!
+            
+            // filling in the values =>
 //
-//            }
-//            
-//                if (pipe1Ypos + PIPE1_HEIGHT < 0) {
-//                pipe1Ypos = canvas.height - PIPE1_HEIGHT;
-//                var extra = Math.floor(Math.random() + 50);
-//                PIPE1_WIDTH = PIPE1_WIDTH + extra;
-//            }
-//
-//
-//
-//        }
+//if (5 < 30 &&
+//    55 > 20 &&
+//    5 < 20 &&
+//    55 > 10) {
+//    // collision detected!
+//}
+        //      
+        //
+        //
+        //    
 
 
 
