@@ -62,11 +62,11 @@
             colorRect(0, 0, canvas.width, canvas.height, 'black'); // bg
 
             colorRect(playerXpos, playerYpos, SIZE, SIZE, 'red');
-            colorRect(pipeXpos, pipeYpos, PIPE_WIDTH, pipeHeight, 'lime');
+          
             colorRect(pipe1Xpos, pipe1Ypos, PIPE1_WIDTH, pipeHeight, 'lime');
             playerMove();
             pipeMove();
-
+             drawPipes();
 
         }
 
@@ -127,6 +127,12 @@
             pipes.push(pipe);
         }
 
+        function drawPipes(){
+            pipes.forEach(function(pipe,i,array){
+                  colorRect(pipe.pipeXpos, pipe.pipeYpos, pipe.PIPE_WIDTH, pipe.PIPE_HEIGHT, 'lime');
+            });
+        }
+        
         function pipeMove() {
             pipeXpos -= pipeSpeed;
             pipe1Xpos -= pipe1Speed;
