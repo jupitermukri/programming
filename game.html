@@ -22,7 +22,7 @@
         var playerXpos = 50;
         var playerYpos = 0;
         const SIZE = 20;
-        var playerYspeed = 5;
+        var playerYspeed = 1;
         var gravity = 0.6;
         var vel = 0;
 
@@ -32,8 +32,8 @@
         var pipeYpos = -70;
         const PIPE_WIDTH = 60;
         var pipeHeight = 300;
-        var vel = 5;
-        var pipeSpeed = 5;
+        var vel = 1;
+        var pipeSpeed = 1;
 
 
         var spaceKeyPressed = false;
@@ -44,7 +44,7 @@
         var pipe1Ypos = 0;
         const PIPE1_WIDTH = 60;
         const PIPE1_HEIGHT = 300;
-        var pipe1Speed = 5;
+        var pipe1Speed = 1;
 
         var pipeGap = Math.floor(Math.random() * (80 - 30)) + 30;
         var pipeCenter = 200;
@@ -54,7 +54,7 @@
 
 
         var pipes = [];
-        var totalPipes = 8;
+        var totalPipes = 4;
         var pipeCounter = 0;
         
 
@@ -104,12 +104,12 @@
             const PIPE_HEIGHT = canvas.height * 0.7;
             var pipeXpos = 0; 
             var pipeYpos = 0;
-            var pipeXspeed = 8;
+            var pipeXspeed = 6;
             var pipeGap, pipeCenter;
             
-            pipeXpos = canvas.width - PIPE_WIDTH + (PIPE_WIDTH * 4 * pipeYCounter);
-            pipeGap = Math.floor(Math.random() * (200 - 50)) + 50;
-            pipeCenter = Math.floor(Math.random() * (canvas.height * .75 - canvas.height * .25)) + canvas.height * .25;
+            pipeXpos = canvas.width - PIPE_WIDTH + (PIPE_WIDTH * 8 * pipeYCounter);
+            pipeGap = Math.floor(Math.random() * (150 - 50)) + 50;
+            pipeCenter = Math.floor(Math.random() * (canvas.height * .50 - canvas.height * .25)) + canvas.height * .25;
             
             if(pipeCounter%2 == 0 && pipeCounter != 0){
                 pipeYpos = pipeCenter - PIPE_HEIGHT - pipeGap / 2;
@@ -156,7 +156,7 @@
             pipe1Xpos -= pipe1Speed;
             if (pipeXpos + PIPE_WIDTH < 0) {
                 pipeXpos = canvas.width - PIPE_WIDTH;
-                pipeGap = Math.floor(Math.random() * (200 - 50)) + 50;
+                pipeGap = Math.floor(Math.random() * (300 - 20)) + 50;
                 pipeCenter = Math.floor(Math.random() * (canvas.height * .75 - canvas.height * .25)) + canvas.height * .25;
                 pipeYpos = pipeCenter - pipeHeight - pipeGap / 2;
                 console.log(pipeGap)
@@ -170,6 +170,8 @@
             
 
         }
+        
+        
 
 //        if (rect1.x < rect2.x + rect2.width &&
 //   rect1.x + rect1.width > rect2.x &&
