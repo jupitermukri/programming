@@ -109,7 +109,7 @@
 
         function makePipes() {
             const PIPE_WIDTH = canvas.width / 15;
-            const PIPE_HEIGHT = canvas.height * 0.7;
+            const PIPE_HEIGHT = canvas.height * 16;
 
             var pipeXpos = 0;
             var pipeYpos = 0;
@@ -117,7 +117,7 @@
             var pipeGap, pipeCenter;
 
             pipeXpos = canvas.width - PIPE_WIDTH + (PIPE_WIDTH * 8 * pipeYCounter);
-            pipeGap = Math.floor(Math.random() * (200 - 100)) + 50;
+            pipeGap = Math.floor(Math.random() * (150 - 100)) + 50;
             pipeCenter = Math.floor(Math.random() * (canvas.height * .75 - canvas.height * 0.25)) + canvas.height * 0.5;
 
             if (pipeCounter % 2 == 0 && pipeCounter != 0) {
@@ -153,8 +153,15 @@
                 pipe.pipeXpos -= pipe.pipeXspeed;
 
                 if (pipe.pipeXpos < 0) {
-                    pipe.pipeXpos = canvas.width - pipe.PIPE_WIDTH;
+                    pipe.pipeXpos = canvas.width + pipe.PIPE_WIDTH;
                 }
+                
+                if (playerXpos + SIZE > pipe.pipeXpos && playerXpos < pipe.pipeXpos + pipe.PIPE_WIDTH && playerYpos + SIZE > pipe.pipeYpos && playerYpos < pipe.pipeYpos + pipe.PIPE_HEIGHT) {
+                playerXpos = 0;
+//                canvasContext = 0;
+                alert("GAME OVER");
+            }
+                
             });
         }
 
