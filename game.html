@@ -2,6 +2,8 @@
 
 <body>
     <canvas id="gameCanvas" width="800" height="400"></canvas>
+    <link rel="stylesheet" href="styles.css">
+
     <script>
         var canvas, canvasContext;
 
@@ -58,16 +60,48 @@
         var pipeCounter = 0;
 
 
+        var gameRun = true;
+        var score = 0;
+        
+        var difficulty = '';
+        var pass = false;
+        
+        while(pass == false) {
+            difficulty = prompt('what difficulty do you want?','easy medium or hard');
+            if(difficulty == 'easy' || difficulty == 'medium' || difficulty == 'hard'){
+                pass = true;   
+            }
+        }
+        
+        var userName = '';
+        var passName = false;
+        
+        while(passName == false) {
+            userName = prompt('what is your name?');
+            if(userName != ''|| userName != null && typeof userName === 'string'){
+                passName = true;   
+            }
+        }
+        
+
         function mainloop() {
-            colorRect(0, 0, canvas.width, canvas.height, 'black'); // bg
+            if (gameRun) {
 
-            colorRect(playerXpos, playerYpos, SIZE, SIZE, 'red');
+                colorRect(0, 0, canvas.width, canvas.height, 'Black'); // bg
+                colorText('userName:' + userName ,20,20,'gold','20px Arial');
 
-            //            colorRect(pipe1Xpos, pipe1Ypos, PIPE1_WIDTH, pipeHeight, 'lime');
-            playerMove();
-            pipeMove();
-            drawPipes();
-            pipesMove();
+                colorRect(playerXpos, playerYpos, SIZE, SIZE, 'red');
+
+                //            colorRect(pipe1Xpos, pipe1Ypos, PIPE1_WIDTH, pipeHeight, 'lime');
+                playerMove();
+                pipeMove();
+                drawPipes();
+                pipesMove();
+            }else {
+                colorRect(0, 0, canvas.width, canvas.height, 'red'); // bg
+                colorText('score:' + score ,20,20,'black','20px Arial');
+                
+            }
 
         }
 
@@ -117,8 +151,8 @@
             var pipeGap, pipeCenter;
 
             pipeXpos = canvas.width - PIPE_WIDTH + (PIPE_WIDTH * 8 * pipeYCounter);
-            pipeGap = Math.floor(Math.random() * (150 - 100)) + 50;
-            pipeCenter = Math.floor(Math.random() * (canvas.height * .75 - canvas.height * 0.25)) + canvas.height * 0.5;
+            pipeGap = Math.floor(Math.random() * (200 - 80)) + 80;
+            pipeCenter = Math.floor(Math.random() * (canvas.height * 0.55 - canvas.height * 0.45)) + canvas.height * 0.5;
 
             if (pipeCounter % 2 == 0 && pipeCounter != 0) {
                 pipeYpos = pipeCenter - PIPE_HEIGHT - pipeGap / 2;
@@ -154,14 +188,14 @@
 
                 if (pipe.pipeXpos < 0) {
                     pipe.pipeXpos = canvas.width + pipe.PIPE_WIDTH;
+                    score++;
                 }
-                
+
                 if (playerXpos + SIZE > pipe.pipeXpos && playerXpos < pipe.pipeXpos + pipe.PIPE_WIDTH && playerYpos + SIZE > pipe.pipeYpos && playerYpos < pipe.pipeYpos + pipe.PIPE_HEIGHT) {
-                playerXpos = 0;
-//                canvasContext = 0;
-                alert("GAME OVER");
-            }
-                
+                    playerXpos = 0;
+                    gameRun = false;
+                }
+
             });
         }
 
@@ -170,7 +204,7 @@
             pipe1Xpos -= pipe1Speed;
             if (pipeXpos + PIPE_WIDTH < 0) {
                 pipeXpos = canvas.width - PIPE_WIDTH;
-                pipeGap = Math.floor(Math.random() * (300 - 20)) + 50;
+                pipeGap = Math.floor(Math.random() * (10 + 10)) + 0;
                 pipeCenter = Math.floor(Math.random() * (canvas.height * .75 - canvas.height * .25)) + canvas.height * .25;
                 pipeYpos = pipeCenter - pipeHeight - pipeGap / 2;
                 console.log(pipeGap)
@@ -182,32 +216,15 @@
             }
 
 
-
         }
 
 
+        function colorText(msg,x,y,c,f){
+            canvasContext.fillStyle = c;
+            canvasContext.font = f;
+            canvasContext.fillText(msg, x, y);
 
-        //        if (rect1.x < rect2.x + rect2.width &&
-        //   rect1.x + rect1.width > rect2.x &&
-        //   rect1.y < rect2.y + rect2.height &&
-        //   rect1.y + rect1.height > rect2.y) {
-        // collision detected!
-
-        // filling in the values =>
-        //
-        //if (5 < 30 &&
-        //    55 > 20 &&
-        //    5 < 20 &&
-        //    55 > 10) {
-        //    // collision detected!
-        //}
-        //      
-        //
-        //
-        //    
-
-
-
+        }
 
 
 
